@@ -1,8 +1,7 @@
-
-const PORT = process.env.PORT || 3001;
 const express = require('express');
 const { animals } = require('./data/animals');
 
+const PORT = process.env.PORT || 3001;
 const app = express();
 
 //this function will take in req.query as an argument and filter through the animals accordingly, returning the new filtered array
@@ -57,5 +56,5 @@ app.get('/api/animals', (req,res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`API server now on port ${PORT}`);
-});
+    console.log(`API server now on port ${PORT}!`);
+  });
