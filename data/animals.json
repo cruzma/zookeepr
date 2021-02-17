@@ -135,6 +135,15 @@
         "hungry"
       ],
       "id": "13"
+    },
+    {
+      "name": "Neeko",
+      "species": "Geko",
+      "diet": "herbivore",
+      "personalityTraits": [
+        "anxious"
+      ],
+      "id": "14"
     }
   ]
 }

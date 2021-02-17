@@ -9,6 +9,10 @@ const app = express();
 //note the USE function below is a method executed by Express.js server that mounts a function to the server that our requests will pass through before getting to the intended end point
 //the functions we can mount to our server are referred to as middleware
 
+// this intructs the server to have all the files readily available and to not "gate it behind a server endpoint"
+//ex all js and css file the html is calling
+app.use(express.static('public'));
+
 //parse incoming string or array data
 //this method takes incoming POST data and cnoverts it to key/value pairings that can be accessed in the req.body object
 //the extended: true option inside the method call informs our server that there may be sub-array data nested in it as well, so it needs to look deep into the POST data as possible to parse all of the data correctly
@@ -18,7 +22,7 @@ app.use(express.urlencoded({ extended: true}));
 //the below method takes incoming POST data in the form of JSON and parses it inot the req.body Javascript object.
 app.use(express.json())
 
-//the above methods all ways need to be setup everytiume you create a server that's looking to accept POST data
+//the above 2 methods all ways need to be setup everytiume you create a server that's looking to accept POST data
 
 
 //this function will take in req.query as an argument and filter through the animals accordingly, returning the new filtered array
@@ -142,6 +146,23 @@ app.post('/api/animals', (req, res) => {
     const animal = createNewAnimal(req.body, animals);
     res.json(animal);
   }
+});
+
+//the "/" bring us to the root route of the server, this is the rout used to create a homepage for a server.
+// this GET route only needs to respond with an HTML page to display in the browser hence the .sendFile() as opposed to the .json()
+// notice again that we are using the path module to ensure we are finding the correct location for the HTML code we want displayed
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/index.html'));
+});
+
+//this route will take us to animals
+//notice the endpoint is just animals, when we create routes we need to stay organized an dset expectations of what type of data is being transferred at that endpoint.
+app.get('/animals', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/animals.html'));
+});
+
+app.get('/zookeepers', (req, res) => {
+  res.sendFile(path.join(__dirname, './public/zookeepers.html'));
 });
 
 app.listen(PORT, () => {
